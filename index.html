@@ -1,131 +1,40 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ProAnalyze is a lightweight command-line toolkit for protein sequence analysis.">
-  <title>ProAnalyze — Protein Sequence Toolkit</title>
-  <style>
-    :root { color-scheme: dark; --bg:#0b1020; --panel:#111a2e; --text:#eef3ff; --muted:#aab7d0; --accent:#73e0bd; --line:#26334e; }
-    * { box-sizing: border-box; }
-    body { margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:radial-gradient(ellipse at 85% 0%,#193451 0,transparent 38%),var(--bg); color:var(--text); line-height:1.6; }
-    a { color:var(--accent); text-decoration:none; }
-    a:hover { text-decoration:underline; }
-    .wrap { width:min(1040px,92%); margin:auto; }
-    header { padding:24px 0; border-bottom:1px solid var(--line); }
-    nav { display:flex; align-items:center; justify-content:space-between; gap:20px; }
-    .brand { font-weight:800; letter-spacing:.3px; font-size:1.1rem; }
-    .brand span { color:var(--accent); }
-    .navlinks { display:flex; gap:20px; color:var(--muted); font-size:.95rem; }
-    .hero { padding:82px 0 62px; display:grid; grid-template-columns:1.2fr .8fr; gap:44px; align-items:center; }
-    .eyebrow { display:inline-block; color:var(--accent); border:1px solid #2e655b; border-radius:999px; padding:5px 11px; font-size:.8rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-    h1 { font-size:clamp(2.5rem,6vw,4.7rem); line-height:1.03; letter-spacing:-.05em; margin:18px 0; }
-    h1 span { color:var(--accent); }
-    .lead { color:var(--muted); font-size:1.13rem; max-width:620px; }
-    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
-    .btn { display:inline-block; padding:11px 17px; border-radius:10px; border:1px solid var(--line); font-weight:700; }
-    .btn.primary { background:var(--accent); color:#082019; border-color:var(--accent); }
-    .terminal { background:#080d18; border:1px solid #26334e; border-radius:16px; overflow:hidden; box-shadow:0 20px 60px #0005; }
-    .termhead { padding:12px 15px; border-bottom:1px solid #26334e; color:var(--muted); font-size:.85rem; }
-    pre { margin:0; padding:22px; overflow:auto; color:#dbe7ff; font: .91rem/1.8 ui-monospace,SFMono-Regular,Menlo,monospace; }
-    .prompt { color:var(--accent); }
-    section { padding:45px 0; }
-    h2 { font-size:clamp(1.7rem,3vw,2.4rem); letter-spacing:-.03em; margin:0 0 12px; }
-    .sectionlead { color:var(--muted); max-width:700px; margin-top:0; }
-    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-top:24px; }
-    .card { background:linear-gradient(160deg,#131e34,#0f1729); border:1px solid var(--line); border-radius:14px; padding:21px; }
-    .icon { font-size:1.35rem; }
-    h3 { margin:10px 0 6px; font-size:1.08rem; }
-    .card p { color:var(--muted); margin:0; font-size:.95rem; }
-    .example { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:22px; }
-    .example pre { padding:0; }
-    .notice { color:var(--muted); font-size:.9rem; border-left:3px solid var(--accent); padding:10px 14px; margin-top:18px; }
-    footer { border-top:1px solid var(--line); padding:25px 0; color:var(--muted); font-size:.9rem; margin-top:30px; }
-    @media(max-width:760px) { .hero { grid-template-columns:1fr; padding-top:54px; gap:30px; } .grid { grid-template-columns:1fr; } .navlinks { gap:12px; font-size:.85rem; } }
-  </style>
-</head>
-<body>
-<header>
-  <div class="wrap">
-    <nav>
-      <a class="brand" href="#" aria-label="ProAnalyze home">Seq<span>Forge</span></a>
-      <div class="navlinks"><a href="#features">Features</a><a href="#quickstart">Quick start</a><a href="#roadmap">Roadmap</a></div>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <section class="wrap hero">
-    <div>
-      <span class="eyebrow">Version 0.1.0 · Open-source prototype</span>
-      <h1>Protein sequences.<br><span>Clear insights.</span></h1>
-      <p class="lead">ProAnalyze is a lightweight command-line toolkit for exploring protein sequences — from FASTA validation and physicochemical properties to pairwise sequence comparison.</p>
-      <div class="actions">
-        <a class="btn primary" href="#quickstart">Get started</a>
-        <a class="btn" href="#features">Explore features</a>
-      </div>
-    </div>
-    <div class="terminal" aria-label="Terminal usage example">
-      <div class="termhead">Terminal · ProAnalyze</div>
-      <pre><span class="prompt">$</span> python seqforge.py analyze protein.txt
-
-Record: input_sequence
-Length: 287 aa
-Molecular weight: ...
-Theoretical pI: ...
-GRAVY: ...
-Amino-acid composition: ...
-
-<span class="prompt">$</span> python seqforge.py compare wt.fasta variant.fasta</pre>
-    </div>
-  </section>
-
-  <section id="features" class="wrap">
-    <h2>Built for practical sequence analysis</h2>
-    <p class="sectionlead">A small, transparent starting point for a broader protein-engineering workflow.</p>
-    <div class="grid">
-      <article class="card"><div class="icon">🧬</div><h3>Flexible sequence input</h3><p>Read standard FASTA records or a plain-text sequence without a header. Multiline sequence input is supported.</p></article>
-      <article class="card"><div class="icon">📊</div><h3>Physicochemical profile</h3><p>Calculate molecular weight, theoretical pI, aromaticity, instability index, aliphatic index, GRAVY and extinction coefficients.</p></article>
-      <article class="card"><div class="icon">🔬</div><h3>Sequence comparison</h3><p>Compare sequences with global alignment using BLOSUM62 and inspect residue identity and gaps.</p></article>
-      <article class="card"><div class="icon">📄</div><h3>Useful output formats</h3><p>Produce readable terminal reports or export results as JSON and CSV for downstream analysis.</p></article>
-      <article class="card"><div class="icon">🪶</div><h3>Lightweight starting point</h3><p>Sequence analysis runs on a standard CPU; structure prediction and molecular dynamics are not included in v0.1.</p></article>
-      <article class="card"><div class="icon">🧪</div><h3>Research-minded design</h3><p>Outputs are labelled as theoretical estimates. They should be interpreted in context and validated when needed.</p></article>
-    </div>
-  </section>
-
-  <section id="quickstart" class="wrap">
-    <h2>Quick start</h2>
-    <p class="sectionlead">Install Biopython, then run ProAnalyze from your terminal.</p>
-    <div class="example">
-      <pre>python -m pip install biopython
-
-# Analyze a headerless plain-text sequence
-python seqforge.py analyze protein.txt
-
-# Analyze a FASTA file
-python seqforge.py analyze protein.fasta
-
-# Save machine-readable results
-python seqforge.py analyze protein.fasta --format json --out report.json
-
-# Compare two sequences
-python seqforge.py compare wildtype.fasta variant.fasta</pre>
-    </div>
-    <p class="notice">Input files should contain the 20 standard amino-acid symbols for v0.1 physicochemical calculations. Values are sequence-derived estimates, not experimental measurements.</p>
-  </section>
-
-  <section id="roadmap" class="wrap">
-    <h2>Roadmap</h2>
-    <div class="grid">
-      <article class="card"><h3>v0.1 · Sequence analysis</h3><p>FASTA validation, sequence properties, JSON/CSV export and global comparison.</p></article>
-      <article class="card"><h3>v0.2 · Structure prediction</h3><p>Planned integration with an appropriate prediction engine and confidence reporting.</p></article>
-      <article class="card"><h3>v0.3+ · Simulation & benchmarking</h3><p>Planned optional molecular dynamics and cost-versus-quality benchmarking. Not yet implemented.</p></article>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">ProAnalyze · An early-stage computational protein toolkit · Version 0.1.0</div>
-</footer>
-</body>
-</html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ProAnalyze: browser-based protein sequence analysis with Excel export.">
+<title>ProAnalyze — Protein Sequence Analyzer</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#121c31;--panel2:#17243b;--text:#eef3ff;--muted:#aab7d0;--accent:#73e0bd;--line:#2a3955;--danger:#ff8e9b;--good:#8be6b0}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#193451 0,transparent 38%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--accent)}.wrap{width:min(1120px,92%);margin:auto}header{border-bottom:1px solid var(--line);padding:18px 0}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-size:1.25rem;font-weight:850;letter-spacing:.02em}.brand span{color:var(--accent)}.nav small{color:var(--muted)}main{padding:36px 0 60px}.hero{margin-bottom:28px}.eyebrow{display:inline-block;border:1px solid #2e655b;color:var(--accent);border-radius:999px;padding:4px 10px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;font-weight:750}h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.06;letter-spacing:-.04em;margin:14px 0}.lead{color:var(--muted);max-width:760px}.panel{background:linear-gradient(160deg,var(--panel),#0f1729);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:20px}.panel h2{margin:0 0 8px;font-size:1.35rem}.muted{color:var(--muted);font-size:.93rem}.inputgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:18px}label{display:block;font-weight:700;margin-bottom:8px}textarea,input[type=file],input[type=text]{width:100%;background:#080f1d;border:1px solid #354764;color:var(--text);border-radius:10px;padding:12px;font:inherit}textarea{min-height:210px;resize:vertical}input[type=file]{padding:15px}.drop{border:1px dashed #49617f;border-radius:12px;padding:16px;background:#0b1425}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 16px;border-radius:10px;font-weight:750;cursor:pointer}.btn.primary{background:var(--accent);border-color:var(--accent);color:#082019}.btn:disabled{opacity:.45;cursor:not-allowed}.status{margin-top:14px;padding:10px 13px;border-radius:10px;background:#101a2c;color:var(--muted);white-space:pre-wrap}.status.error{border:1px solid #743b4a;color:#ffc4cc}.status.success{border:1px solid #285d4b;color:#baf6d4}.tablewrap{overflow:auto;margin-top:14px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;min-width:850px;font-size:.9rem}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#182640;position:sticky;top:0}td{color:#e0e9fa}tr:last-child td{border-bottom:0}.hidden{display:none}.pill{display:inline-block;background:#21334a;border-radius:999px;padding:2px 8px;font-size:.8rem;color:var(--accent)}.small{font-size:.85rem}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.feature{border:1px solid var(--line);border-radius:12px;padding:15px;background:#0f182a}.feature b{display:block;margin-bottom:4px}.feature span{font-size:.9rem;color:var(--muted)}footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-size:.88rem}.footrow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}@media(max-width:760px){.inputgrid,.features{grid-template-columns:1fr}.panel{padding:16px}.nav small{display:none}}
+</style></head>
+<body><header><div class="wrap nav"><div class="brand">Pro<span>Analyze</span></div><small>Browser-based protein sequence analysis · v0.2 prototype</small></div></header>
+<main class="wrap"><section class="hero"><span class="eyebrow">No installation required</span><h1>Protein sequence analysis,<br>right in your browser.</h1><p class="lead">Paste a protein sequence or upload one or more FASTA/plain-text files. Analyze each sequence and export a formatted Excel workbook (.xlsx). Your sequence content is processed in this browser; it is not uploaded to a ProAnalyze server.</p></section>
+<section class="panel" id="analyzer"><h2>Sequence input</h2><p class="muted">Enter one raw sequence or FASTA record below, or select files. You can combine pasted input and uploaded files in one analysis.</p>
+<div class="inputgrid"><div><label for="sequenceInput">Paste sequence / FASTA</label><textarea id="sequenceInput" placeholder=">Protein_1\nMKWVTFISLLFLFSSAYS...\n\nOr paste a headerless amino-acid sequence"></textarea><p class="muted small">Accepted residues: the 20 standard amino acids (ACDEFGHIKLMNPQRSTVWY). Whitespace and FASTA header lines are ignored.</p></div><div><label for="fileInput">Upload sequence files</label><div class="drop"><input id="fileInput" type="file" multiple accept=".fasta,.fa,.faa,.fas,.fna,.pep,.txt,.seq"><p class="muted small" id="fileSummary">No files selected. Multiple files are supported.</p></div><div style="margin-top:16px"><label for="prefixInput">Optional report name</label><input id="prefixInput" type="text" value="proanalyze_results" maxlength="80"></div><p class="muted small">The workbook contains a summary sheet and a separate amino-acid composition sheet.</p></div></div>
+<div class="actions"><button class="btn primary" id="analyzeBtn">Analyze sequences</button><button class="btn" id="exampleBtn">Load example</button><button class="btn" id="clearBtn">Clear input</button></div><div id="status" class="status" role="status" aria-live="polite">Ready. Enter a sequence or select one or more files.</div></section>
+<section class="panel hidden" id="resultsPanel"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><h2>Analysis results</h2><p class="muted" id="resultSummary">No results yet.</p></div><button class="btn primary" id="downloadBtn" disabled>Download Excel workbook (.xlsx)</button></div><div class="tablewrap"><table id="resultsTable"><thead><tr><th>Sequence ID</th><th>Length (aa)</th><th>Molecular weight (Da)</th><th>Theoretical pI</th><th>GRAVY</th><th>Aromaticity</th><th>Aliphatic index</th><th>Extinction (reduced)</th><th>Extinction (cystine)</th></tr></thead><tbody></tbody></table></div><p class="muted small">Theoretical estimates are sequence-derived, not experimental measurements. The pI calculation uses an approximate pKa model. These results should be validated before use in publications or high-stakes research.</p></section>
+<section class="panel"><h2>What the engine calculates</h2><div class="features"><div class="feature"><b>Composition & length</b><span>Residue count, length, and percentage of each standard amino acid.</span></div><div class="feature"><b>Physicochemical properties</b><span>Molecular weight, estimated pI, GRAVY, aromaticity, and aliphatic index.</span></div><div class="feature"><b>Excel export</b><span>One workbook with an Analysis Summary sheet and an Amino Acid Composition sheet.</span></div></div><p class="muted small">Current browser engine: sequence-derived physicochemical analysis. Structure prediction and molecular dynamics are not included in this version.</p></section></main>
+<footer><div class="wrap footrow"><span>ProAnalyze · Open-source prototype</span><span>Runs locally in your browser · No account required</span></div></footer>
+<script>
+'use strict';
+const AA='ACDEFGHIKLMNPQRSTVWY';
+const mass={A:89.0935,R:174.2017,N:132.1184,D:133.1032,C:121.1590,E:147.1293,Q:146.1451,G:75.0669,H:155.1552,I:131.1736,L:131.1736,K:146.1882,M:149.2124,F:165.1900,P:115.1310,S:105.0930,T:119.1197,W:204.2262,Y:181.1894,V:117.1469};
+const kd={I:4.5,V:4.2,L:3.8,F:2.8,C:2.5,M:1.9,A:1.8,G:-0.4,T:-0.7,S:-0.8,W:-0.9,Y:-1.3,P:-1.6,H:-3.2,E:-3.5,Q:-3.5,D:-3.5,N:-3.5,K:-3.9,R:-4.5};
+const pka={Nterm:9.69,Cterm:2.34,C:8.33,D:3.86,E:4.25,H:6.00,K:10.53,R:12.48,Y:10.07};
+const instabilityPairs={};
+const $=id=>document.getElementById(id);let latest=[];
+function parseText(text,fallback){const clean=text.replace(/^\uFEFF/,'').trim();if(!clean)return[];const lines=clean.split(/\r?\n/);const records=[];let header=null,seq=[];const hasHeader=lines.some(l=>l.trim().startsWith('>'));if(hasHeader){for(const line of lines){const t=line.trim();if(!t)continue;if(t.startsWith('>')){if(seq.length)records.push({id:header||fallback,sequence:seq.join('')});header=t.slice(1).trim()||fallback+'_'+(records.length+1);seq=[];}else if(!/^[#;]/.test(t)){seq.push(t.replace(/[\s0-9]/g,'').toUpperCase());}}if(seq.length)records.push({id:header||fallback,sequence:seq.join('')});}else{const s=lines.filter(l=>!/^\s*[#;]/.test(l)).join('').replace(/[\s0-9]/g,'').toUpperCase();if(s)records.push({id:fallback,sequence:s});}return records;}
+async function collectRecords(){let all=[];const pasted=$('sequenceInput').value.trim();if(pasted)all.push(...parseText(pasted,'pasted_sequence'));const files=[...$('fileInput').files];for(const f of files){const txt=await f.text();all.push(...parseText(txt,f.name.replace(/\.[^.]+$/,'')));}return all;}
+function validate(seq,id){if(!seq)return `${id}: empty sequence.`;const invalid=[...new Set(seq.split('').filter(c=>!AA.includes(c)))];if(invalid.length)return `${id}: unsupported symbol(s) ${invalid.join(', ')}. Use the 20 standard amino-acid letters only.`;return null;}
+function pI(seq){let lo=0,hi=14;for(let n=0;n<100;n++){const ph=(lo+hi)/2;let pos=1/(1+10**(ph-pka.Nterm));let neg=1/(1+10**(pka.Cterm-ph));for(const a of seq){if(a==='K')pos+=1/(1+10**(ph-pka.K));if(a==='R')pos+=1/(1+10**(ph-pka.R));if(a==='H')pos+=1/(1+10**(ph-pka.H));if(a==='D')neg+=1/(1+10**(pka.D-ph));if(a==='E')neg+=1/(1+10**(pka.E-ph));if(a==='C')neg+=1/(1+10**(pka.C-ph));if(a==='Y')neg+=1/(1+10**(pka.Y-ph));}if(pos-neg>0)lo=ph;else hi=ph;}return (lo+hi)/2;}
+function analyze(rec){const s=rec.sequence,n=s.length,c={};for(const a of AA)c[a]=0;for(const a of s)c[a]++;const mw=Object.entries(c).reduce((sum,[a,count])=>sum+mass[a]*count,0)-18.01528*(n-1);const gravy=Object.entries(c).reduce((sum,[a,count])=>sum+kd[a]*count,0)/n;const aromatic=(c.F+c.W+c.Y)/n;const aliphatic=100*(c.A+2.9*c.V+3.9*(c.I+c.L))/n;const extReduced=5500*c.W+1490*c.Y;const extCystine=extReduced+125*c.C;const composition={};for(const a of AA)composition[a+'_count']=c[a];for(const a of AA)composition[a+'_percent']=100*c[a]/n;return {id:rec.id,length:n,mw,pI:pI(s),gravy,aromaticity:aromatic,aliphaticIndex:aliphatic,extReduced,extCystine,sequence:s,composition};}
+function fmt(x,d=3){return Number.isFinite(x)?x.toFixed(d):'';}function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function showStatus(msg,kind=''){const e=$('status');e.className='status'+(kind?' '+kind:'');e.textContent=msg;}
+function render(){const tbody=$('resultsTable').querySelector('tbody');tbody.innerHTML='';for(const r of latest){const tr=document.createElement('tr');const vals=[r.id,r.length,fmt(r.mw,2),fmt(r.pI,2),fmt(r.gravy,3),fmt(r.aromaticity,4),fmt(r.aliphaticIndex,2),r.extReduced,r.extCystine];for(const v of vals){const td=document.createElement('td');td.textContent=v;tr.appendChild(td);}tbody.appendChild(tr);} $('resultsPanel').classList.toggle('hidden',!latest.length);$('resultSummary').textContent=`${latest.length} sequence(s) analyzed successfully. Download the workbook for full summary and amino-acid composition.`;$('downloadBtn').disabled=!latest.length;}
+$('fileInput').addEventListener('change',()=>{$('fileSummary').textContent=$('fileInput').files.length?`${$('fileInput').files.length} file(s) selected: `+[...$('fileInput').files].map(f=>f.name).join(', '):'No files selected. Multiple files are supported.';});
+$('exampleBtn').addEventListener('click',()=>{$('sequenceInput').value='>Example_protein\nMKWVTFISLLFLFSSAYS';showStatus('Example sequence loaded. Click Analyze sequences to run the engine.');});
+$('clearBtn').addEventListener('click',()=>{$('sequenceInput').value='';$('fileInput').value='';$('fileSummary').textContent='No files selected. Multiple files are supported.';latest=[];render();showStatus('Inputs and results cleared.');});
+$('analyzeBtn').addEventListener('click',async()=>{const b=$('analyzeBtn');b.disabled=true;b.textContent='Analyzing…';try{const records=await collectRecords();if(!records.length){latest=[];render();showStatus('Enter a sequence or select at least one file first.','error');return;}const seen=new Map(),valid=[],errors=[];for(const r of records){let id=r.id||'sequence';const count=(seen.get(id)||0)+1;seen.set(id,count);if(count>1)id+=`_${count}`;const err=validate(r.sequence,id);if(err)errors.push(err);else valid.push({...r,id});}latest=valid.map(analyze);render();if(errors.length)showStatus(`${latest.length} sequence(s) analyzed; ${errors.length} record(s) skipped:\n${errors.join('\n')}` ,latest.length?'success':'error');else showStatus(`Analysis complete: ${latest.length} sequence(s). Results are ready to export as an Excel workbook.`,'success');}catch(e){showStatus('Analysis failed: '+e.message,'error');}finally{b.disabled=false;b.textContent='Analyze sequences';}});
+$('downloadBtn').addEventListener('click',()=>{if(!latest.length)return;if(typeof XLSX==='undefined'){showStatus('Excel export library did not load. Check your internet connection, reload the page, and try again.','error');return;}const summary=latest.map(r=>({'Sequence ID':r.id,'Length (aa)':r.length,'Molecular weight (Da)':Number(r.mw.toFixed(4)),'Theoretical pI (approx.)':Number(r.pI.toFixed(4)),'GRAVY':Number(r.gravy.toFixed(5)),'Aromaticity':Number(r.aromaticity.toFixed(5)),'Aliphatic index':Number(r.aliphaticIndex.toFixed(4)),'Extinction coefficient (reduced, M^-1 cm^-1)':r.extReduced,'Extinction coefficient (cystine, M^-1 cm^-1)':r.extCystine,'Sequence':r.sequence}));const comp=[];for(const r of latest){const row={'Sequence ID':r.id,'Length (aa)':r.length};for(const a of AA)row[a+' count']=r.composition[a+'_count'];for(const a of AA)row[a+' (%)']=Number(r.composition[a+'_percent'].toFixed(4));comp.push(row);}const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(summary),'Analysis Summary');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(comp),'AA Composition');const notes=[['Metric','Definition / caveat'],['Molecular weight','Sum of residue masses with terminal water accounted for.'],['Theoretical pI','Approximate pKa-based numerical estimate; may differ from Biopython/ExPASy.'],['GRAVY','Mean Kyte-Doolittle hydropathy score.'],['Aromaticity','Fraction of residues that are F, W, or Y.'],['Aliphatic index','100 × (A + 2.9V + 3.9(I + L)) / sequence length.'],['Extinction coefficient','Sequence-based estimate using Trp, Tyr and cystine contributions.'],['Scope','Sequence-derived estimates only; not experimental measurements. Structure prediction and MD are not included.']];XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(notes),'Methods & Notes');let name=$('prefixInput').value.trim().replace(/[^a-zA-Z0-9_-]+/g,'_').replace(/^_+|_+$/g,'')||'proanalyze_results';XLSX.writeFile(wb,name+'.xlsx');showStatus('Excel workbook generated. Check your browser downloads.','success');});
+</script></body></html>
